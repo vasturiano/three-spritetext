@@ -1,0 +1,53 @@
+{
+  "name": "three-spritetext",
+  "version": "1.0.0",
+  "description": "A sprite based text component for ThreeJS",
+  "unpkg": "dist/three-spritetext.min.js",
+  "main": "dist/three-spritetext.common.js",
+  "module": "dist/three-spritetext.module.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasturiano/three-spritetext.git"
+  },
+  "keywords": [
+    "three",
+    "3d",
+    "text",
+    "sprite",
+    "canvas",
+    "webgl"
+  ],
+  "author": {
+    "name": "Vasco Asturiano",
+    "url": "http://bl.ocks.org/vasturiano"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vasturiano/three-spritetext/issues"
+  },
+  "homepage": "https://github.com/vasturiano/three-spritetext",
+  "scripts": {
+    "build": "rm -rf dist && mkdir dist && rollup -c",
+    "watch": "rollup -c -w",
+    "minify": "uglifyjs dist/three-spritetext.js -o dist/three-spritetext.min.js -c -m --comments '/Version/'",
+    "build-module": "rollup -c rollup.config.module.js",
+    "prepublish": "npm run build && npm run minify && npm run build-module"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "three": "^0.86.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "rollup": "^0.56.2",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^8.3.0",
+    "rollup-plugin-node-resolve": "^3.0.3",
+    "rollup-watch": "^4.3.1",
+    "uglify-js": "3.3.4"
+  }
+}
