@@ -1,6 +1,6 @@
 # three-spritetext
 
-[![NPM](https://nodei.co/npm/three-forcegraph.png?compact=true)](https://nodei.co/npm/three-forcegraph/)
+[![NPM](https://nodei.co/npm/three-spritetext.png?compact=true)](https://nodei.co/npm/three-spritetext/)
 
 A sprite based text component for [ThreeJS](https://threejs.org/). The text is drawn to canvas, converted into a [Texture](https://threejs.org/docs/#api/textures/Texture) and then used as a material on a [Sprite](https://threejs.org/docs/#api/objects/Sprite).
 Because a sprite is being used, the text will always face the camera, and have its orientation fixed relative to the camera.
