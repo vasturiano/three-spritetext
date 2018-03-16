@@ -47,7 +47,10 @@ myScene.add(myText);
 ### Webpack
 
 `THREE is not defined`
-THREE is not defined as global variable
+
+Problem: THREE is not defined as a global variable
+
+Solution:
 
 ```
 plugins: [
