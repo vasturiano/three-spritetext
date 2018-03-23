@@ -41,3 +41,21 @@ myScene.add(myText);
 | <b>color</b> | The color of the text. | `white` |
 | <b>fontFace</b> | The font type of the text. | `Arial` |
 | <b>fontSize</b> | The resolution of the text, in terms of vertical number of pixels. Lower values may cause text to look blurry. Higher values will yield sharper text, at the cost of performance. | `90` |
+
+## Troubleshooting
+
+### Webpack
+
+`THREE is not defined`
+
+Problem: THREE is not defined as a global variable
+
+Solution:
+
+```
+plugins: [
+  new webpack.ProvidePlugin({
+    THREE: 'three'
+  })
+],
+```
