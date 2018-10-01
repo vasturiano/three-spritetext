@@ -1,6 +1,22 @@
-export default class extends THREE.Sprite {
+import {
+  LinearFilter,
+  Sprite,
+  SpriteMaterial,
+  Texture
+} from 'three';
+
+const three = window.THREE
+  ? window.THREE // Prefer consumption from global THREE, if exists
+  : {
+  LinearFilter,
+  Sprite,
+  SpriteMaterial,
+  Texture
+};
+
+export default class extends three.Sprite {
   constructor(text = '', textHeight = 10, color = 'rgba(255, 255, 255, 1)') {
-    super(new THREE.SpriteMaterial({ map: new THREE.Texture() }));
+    super(new three.SpriteMaterial({ map: new three.Texture() }));
 
     this._text = text;
     this._textHeight = textHeight;
@@ -11,7 +27,7 @@ export default class extends THREE.Sprite {
 
     this._canvas = document.createElement('canvas');
     this._texture = this.material.map;
-    this._texture.minFilter = THREE.LinearFilter;
+    this._texture.minFilter = three.LinearFilter;
 
     this._genCanvas();
   }
@@ -55,7 +71,7 @@ export default class extends THREE.Sprite {
   }
 
   copy(source) {
-    THREE.Sprite.prototype.copy.call(this, source);
+    three.Sprite.prototype.copy.call(this, source);
 
     this.color = source.color;
     this.fontFace = source.fontFace;
