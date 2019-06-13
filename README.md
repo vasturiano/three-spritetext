@@ -1,6 +1,9 @@
-# three-spritetext
+three-spritetext
+==============
 
-[![NPM](https://nodei.co/npm/three-spritetext.png?compact=true)](https://nodei.co/npm/three-spritetext/)
+[![NPM package][npm-img]][npm-url]
+[![Build Size][build-size-img]][build-size-url]
+[![Dependencies][dependencies-img]][dependencies-url]
 
 A sprite based text component for [ThreeJS](https://threejs.org/). The text is drawn to canvas, converted into a [Texture](https://threejs.org/docs/#api/textures/Texture) and then used as a material on a [Sprite](https://threejs.org/docs/#api/objects/Sprite).
 Because a sprite is being used, the text will always face the camera, and have its orientation fixed relative to the camera.
@@ -46,3 +49,10 @@ myScene.add(myText);
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=L398E7PKP47E8&currency_code=USD&source=url) If this project has helped you and you'd like to contribute back, you can always [buy me a ☕](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=L398E7PKP47E8&currency_code=USD&source=url)!
 
+
+[npm-img]: https://img.shields.io/npm/v/three-spritetext.svg
+[npm-url]: https://npmjs.org/package/three-spritetext
+[build-size-img]: https://img.shields.io/bundlephobia/minzip/three-spritetext.svg
+[build-size-url]: https://bundlephobia.com/result?p=three-spritetext
+[dependencies-img]: https://img.shields.io/david/vasturiano/three-spritetext.svg
+[dependencies-url]: https://david-dm.org/vasturiano/three-spritetext
