@@ -63,7 +63,7 @@ export default class extends three.Sprite {
     this._texture.image = canvas;
     this._texture.needsUpdate = true;
 
-    this.scale.set(this.textHeight * canvas.width / canvas.height, this.textHeight);
+    this.scale.set(this.textHeight * canvas.width / canvas.height, this.textHeight, 1.0);
   }
 
   clone() {
