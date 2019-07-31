@@ -24,6 +24,7 @@ export default class extends three.Sprite {
 
     this._fontFace = 'Arial';
     this._fontSize = 90; // defines text resolution
+    this._fontWeight = 'normal';
 
     this._canvas = document.createElement('canvas');
     this._texture = this.material.map;
@@ -42,12 +43,14 @@ export default class extends three.Sprite {
   set fontFace(fontFace) { this._fontFace = fontFace; this._genCanvas(); }
   get fontSize() { return this._fontSize; }
   set fontSize(fontSize) { this._fontSize = fontSize; this._genCanvas(); }
+  get fontWeight() { return this._fontWeight; }
+  set fontWeight(fontWeight) { this._fontWeight = fontWeight; this._genCanvas(); }
 
   _genCanvas() {
     const canvas = this._canvas;
     const ctx = canvas.getContext('2d');
 
-    const font = `normal ${this.fontSize}px ${this.fontFace}`;
+    const font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
 
     ctx.font = font;
     const textWidth = ctx.measureText(this.text).width;
@@ -76,6 +79,7 @@ export default class extends three.Sprite {
     this.color = source.color;
     this.fontFace = source.fontFace;
     this.fontSize = source.fontSize;
+    this.fontWeight = source.fontWeight;
 
     return this;
   }
