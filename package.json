@@ -1,6 +1,6 @@
 {
   "name": "three-spritetext",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A sprite based text component for ThreeJS",
   "unpkg": "dist/three-spritetext.min.js",
   "main": "dist/three-spritetext.common.js",
