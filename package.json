@@ -27,12 +27,16 @@
   },
   "homepage": "https://github.com/vasturiano/three-spritetext",
   "scripts": {
-    "build": "rm -rf dist && mkdir dist && rollup -c",
-    "watch": "rollup -c -w",
+    "build": "rimraf dist && rollup -c",
+    "dev": "rollup -c -w",
     "minify": "terser dist/three-spritetext.js -o dist/three-spritetext.min.js -c -m --comments '/Version/'",
     "build-module": "rollup -c rollup.config.module.js",
-    "prepublish": "npm run build && npm run minify && npm run build-module"
+    "prepare": "npm run build && npm run minify && npm run build-module"
   },
+  "files": [
+    "dist/**/*",
+    "example/**/*"
+  ],
   "dependencies": {},
   "peerDependencies": {
     "three": ">=0.86.0"
@@ -42,6 +46,7 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "rimraf": "^2.6.3",
     "rollup": "^1.19.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.2",
