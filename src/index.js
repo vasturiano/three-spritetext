@@ -53,14 +53,19 @@ export default class extends three.Sprite {
     const font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
 
     ctx.font = font;
-    const textWidth = ctx.measureText(this.text).width;
+	
+	var lines = this._text.split('\n');
+	var textWidth = Math.max(...lines.map(function (line) { return ctx.measureText(line).width; }));
+	
     canvas.width = textWidth;
-    canvas.height = this.fontSize;
+    canvas.height = this.fontSize * lines.length;
 
     ctx.font = font;
     ctx.fillStyle = this.color;
     ctx.textBaseline = 'bottom';
-    ctx.fillText(this.text, 0, canvas.height);
+	
+	for (var i = 0; i<lines.length; i++)
+		ctx.fillText(lines[i], 0, (i + 1) * this.fontSize );
 
     // Inject canvas into sprite
     this._texture.image = canvas;
