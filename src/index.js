@@ -65,7 +65,7 @@ export default class extends three.Sprite {
     ctx.textBaseline = 'bottom';
 	
 	for (var i = 0; i<lines.length; i++)
-		ctx.fillText(lines[i], 0, (i + 1) * this.fontSize );
+		ctx.fillText(lines[i], (canvas.width - ctx.measureText(lines[i]).width) / 2, (i + 1) * this.fontSize );
 
     // Inject canvas into sprite
     this._texture.image = canvas;
