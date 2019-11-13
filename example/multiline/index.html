@@ -1,0 +1,45 @@
+<head>
+  <style> body { margin: 0; } </style>
+
+  <script src="//unpkg.com/three"></script>
+  <script src="//unpkg.com/three-trackballcontrols-web/dist/three-trackballcontrols.min.js"></script>
+  <!--<script src="//unpkg.com/three-spritetext"></script>-->
+  <script src="../../dist/three-spritetext.js"></script>
+</head>
+
+<body>
+  <div id="container"></div>
+
+  <script>
+    const Text = new SpriteText('This is\nsome multi-line\ntext', 10);
+    Text.color = 'orange';
+
+    // Setup renderer
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('container').appendChild(renderer.domElement);
+
+    // Setup scene
+    const scene = new THREE.Scene();
+    scene.add(Text);
+    scene.add(new THREE.AmbientLight(0xbbbbbb));
+
+    // Setup camera
+    const camera = new THREE.PerspectiveCamera();
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    camera.lookAt(0, 0, 0);
+    camera.position.z = 100;
+
+    // Add camera controls
+    const tbControls = new TrackballControls(camera, renderer.domElement);
+
+    // Kick-off renderer
+    (function animate() { // IIFE
+      // Frame cycle
+      tbControls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
