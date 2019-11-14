@@ -54,8 +54,8 @@ export default class extends three.Sprite {
 
     ctx.font = font;
 	
-	var lines = this._text.split('\n');
-	var textWidth = Math.max(...lines.map(function (line) { return ctx.measureText(line).width; }));
+	const  lines = this._text.split('\n');
+	const  textWidth = Math.max(...lines.map(function (line) { return ctx.measureText(line).width; }));
 	
     canvas.width = textWidth;
     canvas.height = this.fontSize * lines.length;
@@ -64,8 +64,7 @@ export default class extends three.Sprite {
     ctx.fillStyle = this.color;
     ctx.textBaseline = 'bottom';
 	
-	for (var i = 0; i<lines.length; i++)
-		ctx.fillText(lines[i], (canvas.width - ctx.measureText(lines[i]).width) / 2, (i + 1) * this.fontSize );
+	lines.forEach((line, index) => ctx.fillText(line, (canvas.width - ctx.measureText(line).width) / 2, (index + 1) * this.fontSize ));
 
     // Inject canvas into sprite
     this._texture.image = canvas;
