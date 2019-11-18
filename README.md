@@ -39,7 +39,7 @@ myScene.add(myText);
 
 | Property | Description | Default |
 | --- | --- | :--: |
-| <b>text</b> | The text to be displayed on the sprite. ||
+| <b>text</b> | The text to be displayed on the sprite. Supports center aligned multi-lines, using the `\n` character to define line breaks. ||
 | <b>textHeight</b> | The height of the text. | 10 |
 | <b>color</b> | The color of the text. | `white` |
 | <b>fontFace</b> | The font type of the text. | `Arial` |
