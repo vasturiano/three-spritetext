@@ -49,24 +49,28 @@ export default class extends three.Sprite {
   _genCanvas() {
     const canvas = this._canvas;
     const ctx = canvas.getContext('2d');
+  
+    const lines = this._text.split('\n');
 
-    const font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
+    canvas.width = Math.max(...lines.map(line => ctx.measureText(line).width));
+    canvas.height = this.fontSize * lines.length;
 
-    ctx.font = font;
-    const textWidth = ctx.measureText(this.text).width;
-    canvas.width = textWidth;
-    canvas.height = this.fontSize;
-
-    ctx.font = font;
+    ctx.font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
     ctx.fillStyle = this.color;
     ctx.textBaseline = 'bottom';
-    ctx.fillText(this.text, 0, canvas.height);
+  
+    lines.forEach((line, index) => ctx.fillText(
+      line,
+      (canvas.width - ctx.measureText(line).width) / 2,
+      (index + 1) * this.fontSize
+    ));
 
     // Inject canvas into sprite
     this._texture.image = canvas;
     this._texture.needsUpdate = true;
 
-    this.scale.set(this.textHeight * canvas.width / canvas.height, this.textHeight);
+    const yScale = this.textHeight * lines.length;
+    this.scale.set(yScale * canvas.width / canvas.height, yScale);
   }
 
   clone() {

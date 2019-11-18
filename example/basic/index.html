@@ -11,8 +11,13 @@
   <div id="container"></div>
 
   <script>
-    const Text = new SpriteText('Example text', 10);
-    Text.color = 'orange';
+    const SimpleText = new SpriteText('Example text', 10);
+    SimpleText.color = 'orange';
+    SimpleText.position.y = 15;
+
+    const MultilineText = new SpriteText('This is\nsome multi-line\ntext', 7);
+    MultilineText.color = 'blue';
+    MultilineText.position.y = -15;
 
     // Setup renderer
     const renderer = new THREE.WebGLRenderer();
@@ -21,7 +26,8 @@
 
     // Setup scene
     const scene = new THREE.Scene();
-    scene.add(Text);
+    scene.add(SimpleText);
+    scene.add(MultilineText);
     scene.add(new THREE.AmbientLight(0xbbbbbb));
 
     // Setup camera
