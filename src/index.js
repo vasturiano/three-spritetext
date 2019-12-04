@@ -55,10 +55,18 @@ export default class extends three.Sprite {
     canvas.width = Math.max(...lines.map(line => ctx.measureText(line).width));
     canvas.height = this.fontSize * lines.length;
 
-    ctx.font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
+    const font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
+  
+    //Measure actual font.
+    ctx.font = font;
+    canvas.width = Math.max(...lines.map(line => ctx.measureText(line).width));
+    canvas.height = this.fontSize * lines.length;
+
+    //After canvas is modified (see size settings above), context has all properties reset, thus setting font again.
+    ctx.font = font;
     ctx.fillStyle = this.color;
     ctx.textBaseline = 'bottom';
-  
+
     lines.forEach((line, index) => ctx.fillText(
       line,
       (canvas.width - ctx.measureText(line).width) / 2,
