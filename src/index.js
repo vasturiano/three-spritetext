@@ -51,10 +51,6 @@ export default class extends three.Sprite {
     const ctx = canvas.getContext('2d');
   
     const lines = this._text.split('\n');
-
-    canvas.width = Math.max(...lines.map(line => ctx.measureText(line).width));
-    canvas.height = this.fontSize * lines.length;
-
     const font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
   
     //Measure actual font.
