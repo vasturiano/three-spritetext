@@ -18,7 +18,7 @@ export default class extends three.Sprite {
   constructor(text = '', textHeight = 10, color = 'rgba(255, 255, 255, 1)') {
     super(new three.SpriteMaterial({ map: new three.Texture() }));
 
-    this._text = text;
+    this._text = `${text}`;
     this._textHeight = textHeight;
     this._color = color;
 
