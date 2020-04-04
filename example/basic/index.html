@@ -4,20 +4,32 @@
   <script src="//unpkg.com/three"></script>
   <script src="//unpkg.com/three-trackballcontrols-web/dist/three-trackballcontrols.min.js"></script>
   <script src="//unpkg.com/three-spritetext"></script>
-  <!--<script src="../../dist/three-spritetext.js"></script>-->
+<!--  <script src="../../dist/three-spritetext.js"></script>-->
 </head>
 
 <body>
   <div id="container"></div>
 
   <script>
-    const SimpleText = new SpriteText('Example text', 10);
+    const SimpleText = new SpriteText('Basic text', 10);
     SimpleText.color = 'orange';
+    SimpleText.position.x = -45;
     SimpleText.position.y = 15;
 
-    const MultilineText = new SpriteText('This is\nsome multi-line\ntext', 7);
+    const ContainerText = new SpriteText('Boxed text', 8);
+    ContainerText.color = 'orange';
+    ContainerText.backgroundColor = 'rgba(0,0,190,0.6)';
+    ContainerText.borderColor = 'lightgrey';
+    ContainerText.borderWidth = 0.5;
+    ContainerText.padding = [6, 2];
+    ContainerText.position.x = 45;
+    ContainerText.position.y = 15;
+
+    const MultilineText = new SpriteText('This is\nsome multi-line\ntext', 5);
     MultilineText.color = 'blue';
-    MultilineText.position.y = -15;
+    MultilineText.borderWidth = 0.4;
+    MultilineText.padding = 8;
+    MultilineText.position.y = -20;
 
     // Setup renderer
     const renderer = new THREE.WebGLRenderer();
@@ -27,6 +39,7 @@
     // Setup scene
     const scene = new THREE.Scene();
     scene.add(SimpleText);
+    scene.add(ContainerText);
     scene.add(MultilineText);
     scene.add(new THREE.AmbientLight(0xbbbbbb));
 

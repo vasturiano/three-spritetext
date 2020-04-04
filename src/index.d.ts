@@ -13,12 +13,20 @@ declare class SpriteText extends Sprite {
   set textHeight(height: number);
   get color(): string;
   set color(color:string);
+  get backgroundColor(): string;
+  set backgroundColor(color:string);
   get fontFace(): string;
   set fontFace(fontFace: string);
   get fontSize(): number;
   set fontSize(fontSize: number);
   get fontWeight(): string;
   set fontWeight(fontWeight: string);
+  get padding(): number;
+  set padding(fontSize: number);
+  get borderWidth(): number;
+  set borderWidth(fontSize: number);
+  get borderColor(): string;
+  set borderColor(color:string);
 }
 
 export default SpriteText;
