@@ -41,8 +41,10 @@ myScene.add(myText);
 | --- | --- | :--: |
 | <b>text</b> | The text to be displayed on the sprite. Supports center aligned multi-lines, using the `\n` character to define line breaks. ||
 | <b>textHeight</b> | The height of the text. | 10 |
-| <b>color</b> | The color of the text. | `white` |
+| <b>color</b> | The fill color of the text. | `white` |
 | <b>backgroundColor</b> | The canvas background color. A falsy value makes the canvas transparent. | `false` |
+| <b>strokeWidth</b> | The width of the text stroke, proportional to the text size. A value of `0` disables stroking. | `0` |
+| <b>strokeColor</b> | The color of the text stroke. | `white` |
 | <b>fontFace</b> | The font type of the text. | `Arial` |
 | <b>fontSize</b> | The resolution of the text, in terms of vertical number of pixels. Lower values may cause text to look blurry. Higher values will yield sharper text, at the cost of performance. | `90` |
 | <b>fontWeight</b> | The weight (or boldness) of the font. The weights available depend on the font-family you are using. | `normal` |
