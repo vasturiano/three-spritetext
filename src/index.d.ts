@@ -27,7 +27,7 @@ declare class SpriteText extends Sprite {
   set borderWidth(fontSize: number);
   get borderColor(): string;
   set borderColor(color:string);
-  get strokeWidth(): string;
+  get strokeWidth(): number;
   set strokeWidth(strokeWidth: number);
   get strokeColor(): string;
   set strokeColor(strokeColor: string);
