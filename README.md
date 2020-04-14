@@ -40,7 +40,7 @@ myScene.add(myText);
 | Property | Description | Default |
 | --- | --- | :--: |
 | <b>text</b> | The text to be displayed on the sprite. Supports center aligned multi-lines, using the `\n` character to define line breaks. ||
-| <b>textHeight</b> | The height of the text. | 10 |
+| <b>textHeight</b> | The height of the text. | `10` |
 | <b>color</b> | The fill color of the text. | `white` |
 | <b>backgroundColor</b> | The canvas background color. A falsy value makes the canvas transparent. | `false` |
 | <b>strokeWidth</b> | The width of the text stroke, proportional to the text size. A value of `0` disables stroking. | `0` |
