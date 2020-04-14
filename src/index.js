@@ -27,12 +27,12 @@ export default class extends three.Sprite {
     this._borderWidth = 0;
     this._borderColor = 'white';
 
+    this._strokeWidth = 0;
+    this._strokeColor = 'white';
+
     this._fontFace = 'Arial';
     this._fontSize = 90; // defines text resolution
     this._fontWeight = 'normal';
-    
-    this._strokeWidth = 0;
-    this._strokeColor = null;
 
     this._canvas = document.createElement('canvas');
     this._texture = this.material.map;
@@ -123,28 +123,21 @@ export default class extends three.Sprite {
     // paint text
     ctx.font = font; // Set font again after canvas is resized, as context properties are reset
     ctx.fillStyle = this.color;
-    ctx.lineWidth = this.strokeWidth;
-    ctx.strokeStyle = this.strokeColor;
     ctx.textBaseline = 'bottom';
-    
-    const drawTextStroke = this.strokeWidth && this.strokeColor;
-    
+
+    const drawTextStroke = this.strokeWidth > 0;
+    if (drawTextStroke) {
+      ctx.lineWidth = this.strokeWidth * this.fontSize / 10;
+      ctx.strokeStyle = this.strokeColor;
+    }
+
     lines.forEach((line, index) => {
       const lineX = (innerWidth - ctx.measureText(line).width) / 2;
-      const lineY = (index + 1) * _this2.fontSize;
-      if (drawTextStroke) {
-        ctx.strokeText(
-          line,
-          lineX,
-          lineY
-        );
-      }
-      ctx.fillText(
-        line,
-        lineX,
-        lineY
-      );
-    );
+      const lineY = (index + 1) * this.fontSize;
+
+      drawTextStroke && ctx.strokeText(line, lineX, lineY);
+      ctx.fillText(line, lineX, lineY);
+    });
 
     // Inject canvas into sprite
     this._texture.image = canvas;
