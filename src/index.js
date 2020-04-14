@@ -130,17 +130,19 @@ export default class extends three.Sprite {
     const drawTextStroke = this.strokeWidth && this.strokeColor;
     
     lines.forEach((line, index) => {
+      const lineX = (innerWidth - ctx.measureText(line).width) / 2;
+      const lineY = (index + 1) * _this2.fontSize;
       if (drawTextStroke) {
         ctx.strokeText(
           line,
-          (innerWidth - ctx.measureText(line).width) / 2,
-          (index + 1) * this.fontSize
+          lineX,
+          lineY
         );
       }
       ctx.fillText(
         line,
-        (innerWidth - ctx.measureText(line).width) / 2,
-        (index + 1) * this.fontSize
+        lineX,
+        lineY
       );
     );
 
