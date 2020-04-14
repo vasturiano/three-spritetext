@@ -128,7 +128,7 @@ export default class extends three.Sprite {
     ctx.textBaseline = 'bottom';
     
     lines.forEach((line, index) => {
-      if (this.strokeWidth) {
+      if (ctx.lineWidth) {
         ctx.strokeText(
           line,
           (innerWidth - ctx.measureText(line).width) / 2,
