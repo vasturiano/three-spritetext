@@ -32,7 +32,7 @@ export default class extends three.Sprite {
     this._fontWeight = 'normal';
     
     this._strokeWidth = 0;
-    this._strokeColor = 'transparent';
+    this._strokeColor = null;
 
     this._canvas = document.createElement('canvas');
     this._texture = this.material.map;
@@ -127,7 +127,7 @@ export default class extends three.Sprite {
     ctx.strokeStyle = this.strokeColor;
     ctx.textBaseline = 'bottom';
     
-    const drawTextStroke = this.strokeWidth && this.strokeColor !== 'transparent';
+    const drawTextStroke = this.strokeWidth && this.strokeColor;
     
     lines.forEach((line, index) => {
       if (drawTextStroke) {
