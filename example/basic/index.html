@@ -25,10 +25,19 @@
     ContainerText.position.x = 45;
     ContainerText.position.y = 15;
 
+    const StrokeText = new SpriteText('Stroke text', 8);
+    StrokeText.color = 'blue';
+    StrokeText.strokeWidth = 1;
+    StrokeText.strokeColor = 'lightgray';
+    StrokeText.padding = 4;
+    StrokeText.position.x = 45;
+    StrokeText.position.y = -20;
+
     const MultilineText = new SpriteText('This is\nsome multi-line\ntext', 5);
     MultilineText.color = 'blue';
     MultilineText.borderWidth = 0.4;
     MultilineText.padding = 8;
+    MultilineText.position.x = -45;
     MultilineText.position.y = -20;
 
     // Setup renderer
@@ -40,6 +49,7 @@
     const scene = new THREE.Scene();
     scene.add(SimpleText);
     scene.add(ContainerText);
+    scene.add(StrokeText);
     scene.add(MultilineText);
     scene.add(new THREE.AmbientLight(0xbbbbbb));
 
