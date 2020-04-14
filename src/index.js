@@ -30,6 +30,9 @@ export default class extends three.Sprite {
     this._fontFace = 'Arial';
     this._fontSize = 90; // defines text resolution
     this._fontWeight = 'normal';
+    
+    this._strokeWidth = 0;
+    this._strokeColor = '#000000';
 
     this._canvas = document.createElement('canvas');
     this._texture = this.material.map;
@@ -58,6 +61,10 @@ export default class extends three.Sprite {
   set fontSize(fontSize) { this._fontSize = fontSize; this._genCanvas(); }
   get fontWeight() { return this._fontWeight; }
   set fontWeight(fontWeight) { this._fontWeight = fontWeight; this._genCanvas(); }
+  get strokeWidth() { return this._strokeWidth; }
+  set strokeWidth(strokeWidth) { this._strokeWidth = strokeWidth; this._genCanvas(); }
+  get strokeColor() { return this._strokeColor; }
+  set strokeColor(strokeColor) { this._strokeColor = strokeColor; this._genCanvas(); }
 
   _genCanvas() {
     const canvas = this._canvas;
@@ -116,13 +123,24 @@ export default class extends three.Sprite {
     // paint text
     ctx.font = font; // Set font again after canvas is resized, as context properties are reset
     ctx.fillStyle = this.color;
+    ctx.lineWidth = this.strokeWidth;
+    ctx.strokeStyle = this.strokeColor;
     ctx.textBaseline = 'bottom';
-
-    lines.forEach((line, index) => ctx.fillText(
-      line,
-      (innerWidth - ctx.measureText(line).width) / 2,
-      (index + 1) * this.fontSize
-    ));
+    
+    lines.forEach((line, index) => {
+      if (this.strokeWidth) {
+        ctx.strokeText(
+          line,
+          (innerWidth - ctx.measureText(line).width) / 2,
+          (index + 1) * this.fontSize
+        );
+      }
+      ctx.fillText(
+        line,
+        (innerWidth - ctx.measureText(line).width) / 2,
+        (index + 1) * this.fontSize
+      );
+    );
 
     // Inject canvas into sprite
     this._texture.image = canvas;
@@ -147,6 +165,8 @@ export default class extends three.Sprite {
     this.fontFace = source.fontFace;
     this.fontSize = source.fontSize;
     this.fontWeight = source.fontWeight;
+    this.strokeWidth = source.strokeWidth;
+    this.strokeColor = source.strokeColor;
 
     return this;
   }
