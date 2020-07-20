@@ -144,7 +144,7 @@ export default class extends three.Sprite {
     this._texture.needsUpdate = true;
 
     const yScale = this.textHeight * lines.length + border[1] * 2 + padding[1] * 2;
-    this.scale.set(yScale * canvas.width / canvas.height, yScale);
+    this.scale.set(yScale * canvas.width / canvas.height, yScale, 0);
   }
 
   clone() {
