@@ -1,6 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonJs from '@rollup/plugin-commonjs';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import { terser } from "rollup-plugin-terser";
 import dts from 'rollup-plugin-dts';
 import { name, homepage, version, dependencies, peerDependencies } from './package.json';
