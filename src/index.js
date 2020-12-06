@@ -5,7 +5,7 @@ import {
   Texture
 } from 'three';
 
-const three = window.THREE
+const three = typeof window !== 'undefined' && window.THREE
   ? window.THREE // Prefer consumption from global THREE, if exists
   : {
   LinearFilter,
