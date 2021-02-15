@@ -50,6 +50,7 @@ myScene.add(myText);
 | <b>fontWeight</b> | The weight (or boldness) of the font. The weights available depend on the font-family you are using. | `normal` |
 | <b>padding</b> | The amount of padding between the text and the canvas edge. Supports either single values, or a tuple with two values representing horizontal and vertical padding. | `0` |
 | <b>borderWidth</b> | The size of the border around the canvas. Supports either single values, or a tuple with two values representing horizontal and vertical border size. | `0` |
+| <b>borderRadius</b> | The corner radius of the border. Supports either single values, or an array of four values representing the four corners in order: top-left, top-right, bottom-right, bottom-left. | `0` |
 | <b>borderColor</b> | The color of the border. | `white` |
 
 ## Giving Back

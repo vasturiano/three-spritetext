@@ -25,6 +25,7 @@ export default class extends three.Sprite {
 
     this._padding = 0;
     this._borderWidth = 0;
+    this._borderRadius = 0;
     this._borderColor = 'white';
 
     this._strokeWidth = 0;
@@ -53,6 +54,8 @@ export default class extends three.Sprite {
   set padding(padding) { this._padding = padding; this._genCanvas(); }
   get borderWidth() { return this._borderWidth; }
   set borderWidth(borderWidth) { this._borderWidth = borderWidth; this._genCanvas(); }
+  get borderRadius() { return this._borderRadius; }
+  set borderRadius(borderRadius) { this._borderRadius = borderRadius; this._genCanvas(); }
   get borderColor() { return this._borderColor; }
   set borderColor(borderColor) { this._borderColor = borderColor; this._genCanvas(); }
   get fontFace() { return this._fontFace; }
@@ -73,6 +76,9 @@ export default class extends three.Sprite {
     const border = Array.isArray(this.borderWidth) ? this.borderWidth : [this.borderWidth, this.borderWidth]; // x,y border
     const relBorder = border.map(b => b * this.fontSize * 0.1); // border in canvas units
 
+    const borderRadius = Array.isArray(this.borderRadius) ? this.borderRadius : [this.borderRadius, this.borderRadius, this.borderRadius, this.borderRadius]; // tl tr br bl corners
+    const relBorderRadius = borderRadius.map(b => b * this.fontSize * 0.1); // border radius in canvas units
+
     const padding = Array.isArray(this.padding) ? this.padding : [this.padding, this.padding]; // x,y padding
     const relPadding = padding.map(p => p * this.fontSize * 0.1); // padding in canvas units
 
@@ -89,35 +95,69 @@ export default class extends three.Sprite {
     if (this.borderWidth) {
       ctx.strokeStyle = this.borderColor;
 
-      if (relBorder[0]) {
-        ctx.lineWidth = relBorder[0] * 2;
+      if (relBorder[0]) { // left + right borders
+        const hb = relBorder[0] / 2;
+        ctx.lineWidth = relBorder[0];
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(0, canvas.height);
-        ctx.moveTo(canvas.width, 0);
-        ctx.lineTo(canvas.width, canvas.height);
+        ctx.moveTo(hb, relBorderRadius[0]);
+        ctx.lineTo(hb, canvas.height - relBorderRadius[3]);
+        ctx.moveTo(canvas.width - hb, relBorderRadius[1]);
+        ctx.lineTo(canvas.width - hb, canvas.height - relBorderRadius[2]);
         ctx.stroke();
       }
 
-      if (relBorder[1]) {
-        ctx.lineWidth = relBorder[1] * 2;
+      if (relBorder[1]) { // top + bottom borders
+        const hb = relBorder[1] / 2;
+        ctx.lineWidth = relBorder[1];
         ctx.beginPath();
-        ctx.moveTo(relBorder[0], 0);
-        ctx.lineTo(canvas.width - relBorder[0], 0);
-        ctx.moveTo(relBorder[0], canvas.height);
-        ctx.lineTo(canvas.width - relBorder[0], canvas.height);
+        ctx.moveTo(Math.max(relBorder[0], relBorderRadius[0]), hb);
+        ctx.lineTo(canvas.width - Math.max(relBorder[0], relBorderRadius[1]), hb);
+        ctx.moveTo(Math.max(relBorder[0], relBorderRadius[3]), canvas.height - hb);
+        ctx.lineTo(canvas.width - Math.max(relBorder[0], relBorderRadius[2]), canvas.height - hb);
+        ctx.stroke();
+      }
+
+      if (this.borderRadius) { // strike rounded corners
+        const cornerWidth = Math.max(...relBorder);
+        const hb = cornerWidth / 2;
+        ctx.lineWidth = cornerWidth;
+        ctx.beginPath();
+        [
+          !!relBorderRadius[0] && [relBorderRadius[0], hb, hb, relBorderRadius[0]],
+          !!relBorderRadius[1] && [canvas.width - relBorderRadius[1], canvas.width - hb, hb, relBorderRadius[1]],
+          !!relBorderRadius[2] && [canvas.width - relBorderRadius[2], canvas.width - hb, canvas.height - hb, canvas.height - relBorderRadius[2]],
+          !!relBorderRadius[3] && [relBorderRadius[3], hb, canvas.height - hb, canvas.height - relBorderRadius[3]]
+        ].filter(d => d).forEach(([x0, x1, y0, y1]) => {
+          ctx.moveTo(x0, y0);
+          ctx.quadraticCurveTo(x1, y0, x1, y1);
+        });
         ctx.stroke();
       }
     }
-
-    ctx.translate(...relBorder);
 
     // paint background
     if (this.backgroundColor) {
       ctx.fillStyle = this.backgroundColor;
-      ctx.fillRect(0, 0, canvas.width - relBorder[0] * 2, canvas.height - relBorder[1] * 2);
+      if (!this.borderRadius) {
+        ctx.fillRect(relBorder[0], relBorder[1], canvas.width - relBorder[0] * 2, canvas.height - relBorder[1] * 2);
+      } else { // fill with rounded corners
+        ctx.beginPath();
+        ctx.moveTo(relBorder[0], relBorderRadius[0]);
+        [
+          [relBorder[0], relBorderRadius[0], canvas.width - relBorderRadius[1], relBorder[1], relBorder[1], relBorder[1]], // t
+          [canvas.width - relBorder[0], canvas.width - relBorder[0], canvas.width - relBorder[0], relBorder[1], relBorderRadius[1], canvas.height - relBorderRadius[2]], // r
+          [canvas.width - relBorder[0], canvas.width - relBorderRadius[2], relBorderRadius[3], canvas.height - relBorder[1], canvas.height - relBorder[1], canvas.height - relBorder[1]], // b
+          [relBorder[0], relBorder[0], relBorder[0], canvas.height - relBorder[1], canvas.height - relBorderRadius[3], relBorderRadius[0]], // t
+        ].forEach(([x0, x1, x2, y0, y1, y2]) => {
+          ctx.quadraticCurveTo(x0, y0, x1, y1);
+          ctx.lineTo(x2, y2);
+        });
+        ctx.closePath();
+        ctx.fill();
+      }
     }
 
+    ctx.translate(...relBorder);
     ctx.translate(...relPadding);
 
     // paint text
