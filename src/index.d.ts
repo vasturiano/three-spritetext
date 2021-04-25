@@ -22,9 +22,9 @@ declare class SpriteText extends Sprite {
   get fontWeight(): string;
   set fontWeight(fontWeight: string);
   get padding(): number;
-  set padding(fontSize: number);
+  set padding(padding: number);
   get borderWidth(): number;
-  set borderWidth(fontSize: number);
+  set borderWidth(width: number);
   get borderRadius(): number;
   set borderRadius(radius: number);
   get borderColor(): string;
