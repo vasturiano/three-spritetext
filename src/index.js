@@ -137,7 +137,19 @@ export default class extends three.Sprite {
 
     // paint background
     if (this.backgroundColor) {
-      ctx.fillStyle = this.backgroundColor;
+       // ctx.fillStyle = this.backgroundColor;
+      const color = this.backgroundColor;
+      if(Array.isArray(color)){
+        // // 创建渐变
+        const grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        color.forEach((item)=>{
+          grd.addColorStop(item.index, item.color);
+        })
+        // 填充渐变
+        ctx.fillStyle = grd;
+      }else{
+        ctx.fillStyle = this.backgroundColor;
+      }
       if (!this.borderRadius) {
         ctx.fillRect(relBorder[0], relBorder[1], canvas.width - relBorder[0] * 2, canvas.height - relBorder[1] * 2);
       } else { // fill with rounded corners
