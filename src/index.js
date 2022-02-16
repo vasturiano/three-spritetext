@@ -178,6 +178,7 @@ export default class extends three.Sprite {
     });
 
     // Inject canvas into sprite
+    if (this.material.map) this.material.map.dispose(); // gc previous texture
     const texture = this.material.map = new three.Texture(canvas);
     texture.minFilter = three.LinearFilter;
     texture.needsUpdate = true;
