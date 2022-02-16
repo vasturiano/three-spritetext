@@ -16,7 +16,7 @@ const three = typeof window !== 'undefined' && window.THREE
 
 export default class extends three.Sprite {
   constructor(text = '', textHeight = 10, color = 'rgba(255, 255, 255, 1)') {
-    super(new three.SpriteMaterial({ map: new three.Texture() }));
+    super(new three.SpriteMaterial());
 
     this._text = `${text}`;
     this._textHeight = textHeight;
@@ -36,8 +36,6 @@ export default class extends three.Sprite {
     this._fontWeight = 'normal';
 
     this._canvas = document.createElement('canvas');
-    this._texture = this.material.map;
-    this._texture.minFilter = three.LinearFilter;
 
     this._genCanvas();
   }
@@ -180,8 +178,9 @@ export default class extends three.Sprite {
     });
 
     // Inject canvas into sprite
-    this._texture.image = canvas;
-    this._texture.needsUpdate = true;
+    const texture = this.material.map = new three.Texture(canvas);
+    texture.minFilter = three.LinearFilter;
+    texture.needsUpdate = true;
 
     const yScale = this.textHeight * lines.length + border[1] * 2 + padding[1] * 2;
     this.scale.set(yScale * canvas.width / canvas.height, yScale, 0);
