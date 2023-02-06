@@ -13,11 +13,7 @@ Because a sprite is being used, the text will always face the camera, and has it
 ```js
 import SpriteText from 'three-spritetext';
 ```
-or
-```js
-const SpriteText = require('three-spritetext');
-```
-or even
+or using a *script* tag
 ```html
 <script src="//unpkg.com/three-spritetext"></script>
 ```
