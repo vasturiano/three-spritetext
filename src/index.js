@@ -31,7 +31,7 @@ export default class extends three.Sprite {
     this._strokeWidth = 0;
     this._strokeColor = 'white';
 
-    this._fontFace = 'Arial';
+    this._fontFace = 'system-ui';
     this._fontSize = 90; // defines text resolution
     this._fontWeight = 'normal';
 
