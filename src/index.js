@@ -2,6 +2,7 @@ import {
   LinearFilter,
   Sprite,
   SpriteMaterial,
+  SRGBColorSpace,
   Texture
 } from 'three';
 
@@ -11,6 +12,7 @@ const three = typeof window !== 'undefined' && window.THREE
   LinearFilter,
   Sprite,
   SpriteMaterial,
+  SRGBColorSpace,
   Texture
 };
 
@@ -181,6 +183,7 @@ export default class extends three.Sprite {
     if (this.material.map) this.material.map.dispose(); // gc previous texture
     const texture = this.material.map = new three.Texture(canvas);
     texture.minFilter = three.LinearFilter;
+    texture.colorSpace = three.SRGBColorSpace;
     texture.needsUpdate = true;
 
     const yScale = this.textHeight * lines.length + border[1] * 2 + padding[1] * 2;
