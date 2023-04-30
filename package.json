@@ -8,6 +8,7 @@
   "module": "dist/three-spritetext.mjs",
   "types": "dist/three-spritetext.d.ts",
   "exports": {
+    "types": "./dist/three-spritetext.d.ts",
     "umd": "./dist/three-spritetext.min.js",
     "default": "./dist/three-spritetext.mjs"
   },
@@ -46,17 +47,17 @@
     "three": ">=0.86.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.0",
-    "@babel/preset-env": "^7.20.2",
+    "@babel/core": "^7.21.5",
+    "@babel/preset-env": "^7.21.5",
     "@rollup/plugin-babel": "^6.0.3",
-    "@rollup/plugin-commonjs": "^24.0.1",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-terser": "^0.4.1",
     "@types/three": ">=0.86.0",
-    "rimraf": "^4.1.2",
-    "rollup": "^3.17.3",
-    "rollup-plugin-dts": "^5.2.0",
-    "typescript": "^4.9.5"
+    "rimraf": "^5.0.0",
+    "rollup": "^3.21.2",
+    "rollup-plugin-dts": "^5.3.0",
+    "typescript": "^5.0.4"
   },
   "engines": {
     "node": ">=12"
