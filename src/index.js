@@ -1,17 +1,17 @@
 import {
+  CanvasTexture,
   Sprite,
   SpriteMaterial,
-  SRGBColorSpace,
-  Texture
+  SRGBColorSpace
 } from 'three';
 
 const three = typeof window !== 'undefined' && window.THREE
   ? window.THREE // Prefer consumption from global THREE, if exists
   : {
+  CanvasTexture,
   Sprite,
   SpriteMaterial,
-  SRGBColorSpace,
-  Texture
+  SRGBColorSpace
 };
 
 export default class extends three.Sprite {
@@ -179,9 +179,8 @@ export default class extends three.Sprite {
 
     // Inject canvas into sprite
     if (this.material.map) this.material.map.dispose(); // gc previous texture
-    const texture = this.material.map = new three.Texture(canvas);
+    const texture = this.material.map = new three.CanvasTexture(canvas);
     texture.colorSpace = three.SRGBColorSpace;
-    texture.needsUpdate = true;
 
     const yScale = this.textHeight * lines.length + border[1] * 2 + padding[1] * 2;
     this.scale.set(yScale * canvas.width / canvas.height, yScale, 0);
