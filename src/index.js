@@ -71,14 +71,16 @@ export default class extends three.Sprite {
     const canvas = this._canvas;
     const ctx = canvas.getContext('2d');
 
+    const relFactor = 1 / this.textHeight;
+
     const border = Array.isArray(this.borderWidth) ? this.borderWidth : [this.borderWidth, this.borderWidth]; // x,y border
-    const relBorder = border.map(b => b * this.fontSize * 0.1); // border in canvas units
+    const relBorder = border.map(b => b * this.fontSize * relFactor); // border in canvas units
 
     const borderRadius = Array.isArray(this.borderRadius) ? this.borderRadius : [this.borderRadius, this.borderRadius, this.borderRadius, this.borderRadius]; // tl tr br bl corners
-    const relBorderRadius = borderRadius.map(b => b * this.fontSize * 0.1); // border radius in canvas units
+    const relBorderRadius = borderRadius.map(b => b * this.fontSize * relFactor); // border radius in canvas units
 
     const padding = Array.isArray(this.padding) ? this.padding : [this.padding, this.padding]; // x,y padding
-    const relPadding = padding.map(p => p * this.fontSize * 0.1); // padding in canvas units
+    const relPadding = padding.map(p => p * this.fontSize * relFactor); // padding in canvas units
 
     const lines = this.text.split('\n');
     const font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
