@@ -2,9 +2,8 @@
   <style> body { margin: 0; } </style>
 
   <script type="importmap">{ "imports": {
-    "three": "//unpkg.com/three/build/three.module.js",
-    "three/addons/": "//unpkg.com/three/examples/jsm/",
-    "three-spritetext": "//unpkg.com/three-spritetext/dist/three-spritetext.mjs"
+    "three": "https://esm.sh/three",
+    "three/addons/": "https://esm.sh/three/examples/jsm/"
   }}</script>
 </head>
 
@@ -12,10 +11,10 @@
   <div id="container"></div>
 
   <script type="module">
-    import * as THREE from 'three';
-    import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
-    import SpriteText from "three-spritetext";
+    import SpriteText from "https://esm.sh/three-spritetext?external=three";
     // import SpriteText from "../../dist/three-spritetext.mjs";
+    import * as THREE from 'three';
+    import { TrackballControls } from 'three/addons/controls/TrackballControls.js?external=three';
 
     const SimpleText = new SpriteText('Basic text', 10);
     SimpleText.color = 'orange';
