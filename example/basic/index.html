@@ -3,7 +3,7 @@
 
   <script type="importmap">{ "imports": {
     "three": "https://esm.sh/three",
-    "three/addons/": "https://esm.sh/three/examples/jsm/"
+    "three/": "https://esm.sh/three/"
   }}</script>
 </head>
 
@@ -14,7 +14,7 @@
     import SpriteText from "https://esm.sh/three-spritetext?external=three";
     // import SpriteText from "../../dist/three-spritetext.mjs";
     import * as THREE from 'three';
-    import { TrackballControls } from 'three/addons/controls/TrackballControls.js?external=three';
+    import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js?external=three';
 
     const SimpleText = new SpriteText('Basic text', 10);
     SimpleText.color = 'orange';
@@ -49,6 +49,7 @@
     // Setup renderer
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
     document.getElementById('container').appendChild(renderer.domElement);
 
     // Setup scene
