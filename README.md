@@ -15,7 +15,7 @@ import SpriteText from 'three-spritetext';
 ```
 or using a *script* tag
 ```html
-<script src="//unpkg.com/three-spritetext"></script>
+<script src="//cdn.jsdelivr.net/npm/three-spritetext"></script>
 ```
 then
 ```js
