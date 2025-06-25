@@ -48,6 +48,8 @@ myScene.add(myText);
 | <b>borderWidth</b> | The size of the border around the canvas. Supports either single values, or a tuple with two values representing horizontal and vertical border size. | `0` |
 | <b>borderRadius</b> | The corner radius of the border. Supports either single values, or an array of four values representing the four corners in order: top-left, top-right, bottom-right, bottom-left. | `0` |
 | <b>borderColor</b> | The color of the border. | `white` |
+| <b>offsetX</b> | Shifts the content horizontally by adding a margin. Positive values shift to the right, negative to the left. | `0` |
+| <b>offsetY</b> | Shifts the content vertically by adding a margin. Positive values shift downwards, and negative upwards. | `0` |
 
 ## ❤️ Support This Project
 

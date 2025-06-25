@@ -27,6 +27,8 @@ export default class extends three.Sprite {
     this._borderWidth = 0;
     this._borderRadius = 0;
     this._borderColor = 'white';
+    this._offsetX = 0;
+    this._offsetY = 0;
 
     this._strokeWidth = 0;
     this._strokeColor = 'white';
@@ -56,6 +58,10 @@ export default class extends three.Sprite {
   set borderRadius(borderRadius) { this._borderRadius = borderRadius; this._genCanvas(); }
   get borderColor() { return this._borderColor; }
   set borderColor(borderColor) { this._borderColor = borderColor; this._genCanvas(); }
+  get offsetX() { return this._offsetX; }
+  set offsetX(offset) { this._offsetX = offset; this._genCanvas(); }
+  get offsetY() { return this._offsetY; }
+  set offsetY(offset) { this._offsetY = offset; this._genCanvas(); }
   get fontFace() { return this._fontFace; }
   set fontFace(fontFace) { this._fontFace = fontFace; this._genCanvas(); }
   get fontSize() { return this._fontSize; }
@@ -82,14 +88,21 @@ export default class extends three.Sprite {
     const padding = Array.isArray(this.padding) ? this.padding : [this.padding, this.padding]; // x,y padding
     const relPadding = padding.map(p => p * this.fontSize * relFactor); // padding in canvas units
 
+    const relOffset = [this.offsetX, this.offsetY].map(o => o * this.fontSize * relFactor); // offset in canvas units
+
     const lines = this.text.split('\n');
     const font = `${this.fontWeight} ${this.fontSize}px ${this.fontFace}`;
 
     ctx.font = font; // measure canvas with appropriate font
     const innerWidth = Math.max(...lines.map(line => ctx.measureText(line).width));
     const innerHeight = this.fontSize * lines.length;
-    canvas.width = innerWidth + relBorder[0] * 2 + relPadding[0] * 2;
-    canvas.height = innerHeight + relBorder[1] * 2 + relPadding[1] * 2;
+    const boxWidth = innerWidth + relBorder[0] * 2 + relPadding[0] * 2;
+    const boxHeight = innerHeight + relBorder[1] * 2 + relPadding[1] * 2;
+    canvas.width = boxWidth + Math.abs(relOffset[0]);
+    canvas.height = boxHeight + Math.abs(relOffset[1]);
+
+    // offset transform (only needed for positive values)
+    ctx.translate(...relOffset.map(o => Math.max(0, o)));
 
     // paint border
     if (this.borderWidth) {
@@ -100,9 +113,9 @@ export default class extends three.Sprite {
         ctx.lineWidth = relBorder[0];
         ctx.beginPath();
         ctx.moveTo(hb, relBorderRadius[0]);
-        ctx.lineTo(hb, canvas.height - relBorderRadius[3]);
-        ctx.moveTo(canvas.width - hb, relBorderRadius[1]);
-        ctx.lineTo(canvas.width - hb, canvas.height - relBorderRadius[2]);
+        ctx.lineTo(hb, boxHeight - relBorderRadius[3]);
+        ctx.moveTo(boxWidth - hb, relBorderRadius[1]);
+        ctx.lineTo(boxWidth - hb, boxHeight - relBorderRadius[2]);
         ctx.stroke();
       }
 
@@ -111,9 +124,9 @@ export default class extends three.Sprite {
         ctx.lineWidth = relBorder[1];
         ctx.beginPath();
         ctx.moveTo(Math.max(relBorder[0], relBorderRadius[0]), hb);
-        ctx.lineTo(canvas.width - Math.max(relBorder[0], relBorderRadius[1]), hb);
-        ctx.moveTo(Math.max(relBorder[0], relBorderRadius[3]), canvas.height - hb);
-        ctx.lineTo(canvas.width - Math.max(relBorder[0], relBorderRadius[2]), canvas.height - hb);
+        ctx.lineTo(boxWidth - Math.max(relBorder[0], relBorderRadius[1]), hb);
+        ctx.moveTo(Math.max(relBorder[0], relBorderRadius[3]), boxHeight - hb);
+        ctx.lineTo(boxWidth - Math.max(relBorder[0], relBorderRadius[2]), boxHeight - hb);
         ctx.stroke();
       }
 
@@ -124,9 +137,9 @@ export default class extends three.Sprite {
         ctx.beginPath();
         [
           !!relBorderRadius[0] && [relBorderRadius[0], hb, hb, relBorderRadius[0]],
-          !!relBorderRadius[1] && [canvas.width - relBorderRadius[1], canvas.width - hb, hb, relBorderRadius[1]],
-          !!relBorderRadius[2] && [canvas.width - relBorderRadius[2], canvas.width - hb, canvas.height - hb, canvas.height - relBorderRadius[2]],
-          !!relBorderRadius[3] && [relBorderRadius[3], hb, canvas.height - hb, canvas.height - relBorderRadius[3]]
+          !!relBorderRadius[1] && [boxWidth - relBorderRadius[1], boxWidth - hb, hb, relBorderRadius[1]],
+          !!relBorderRadius[2] && [boxWidth - relBorderRadius[2], boxWidth - hb, boxHeight - hb, boxHeight - relBorderRadius[2]],
+          !!relBorderRadius[3] && [relBorderRadius[3], hb, boxHeight - hb, boxHeight - relBorderRadius[3]]
         ].filter(d => d).forEach(([x0, x1, y0, y1]) => {
           ctx.moveTo(x0, y0);
           ctx.quadraticCurveTo(x1, y0, x1, y1);
@@ -139,15 +152,15 @@ export default class extends three.Sprite {
     if (this.backgroundColor) {
       ctx.fillStyle = this.backgroundColor;
       if (!this.borderRadius) {
-        ctx.fillRect(relBorder[0], relBorder[1], canvas.width - relBorder[0] * 2, canvas.height - relBorder[1] * 2);
+        ctx.fillRect(relBorder[0], relBorder[1], boxWidth - relBorder[0] * 2, boxHeight - relBorder[1] * 2);
       } else { // fill with rounded corners
         ctx.beginPath();
         ctx.moveTo(relBorder[0], relBorderRadius[0]);
         [
-          [relBorder[0], relBorderRadius[0], canvas.width - relBorderRadius[1], relBorder[1], relBorder[1], relBorder[1]], // t
-          [canvas.width - relBorder[0], canvas.width - relBorder[0], canvas.width - relBorder[0], relBorder[1], relBorderRadius[1], canvas.height - relBorderRadius[2]], // r
-          [canvas.width - relBorder[0], canvas.width - relBorderRadius[2], relBorderRadius[3], canvas.height - relBorder[1], canvas.height - relBorder[1], canvas.height - relBorder[1]], // b
-          [relBorder[0], relBorder[0], relBorder[0], canvas.height - relBorder[1], canvas.height - relBorderRadius[3], relBorderRadius[0]], // t
+          [relBorder[0], relBorderRadius[0], boxWidth - relBorderRadius[1], relBorder[1], relBorder[1], relBorder[1]], // t
+          [boxWidth - relBorder[0], boxWidth - relBorder[0], boxWidth - relBorder[0], relBorder[1], relBorderRadius[1], boxHeight - relBorderRadius[2]], // r
+          [boxWidth - relBorder[0], boxWidth - relBorderRadius[2], relBorderRadius[3], boxHeight - relBorder[1], boxHeight - relBorder[1], boxHeight - relBorder[1]], // b
+          [relBorder[0], relBorder[0], relBorder[0], boxHeight - relBorder[1], boxHeight - relBorderRadius[3], relBorderRadius[0]], // t
         ].forEach(([x0, x1, x2, y0, y1, y2]) => {
           ctx.quadraticCurveTo(x0, y0, x1, y1);
           ctx.lineTo(x2, y2);
@@ -184,7 +197,7 @@ export default class extends three.Sprite {
     const texture = this.material.map = new three.CanvasTexture(canvas);
     texture.colorSpace = three.SRGBColorSpace;
 
-    const yScale = this.textHeight * lines.length + border[1] * 2 + padding[1] * 2;
+    const yScale = this.textHeight * lines.length + border[1] * 2 + padding[1] * 2 + Math.abs(this.offsetY);
     this.scale.set(yScale * canvas.width / canvas.height, yScale, 0);
   }
 
@@ -200,6 +213,8 @@ export default class extends three.Sprite {
     this.padding = source.padding;
     this.borderWidth = source.borderWidth;
     this.borderColor = source.borderColor;
+    this.offsetX = source.offsetX;
+    this.offsetY = source.offsetY;
     this.fontFace = source.fontFace;
     this.fontSize = source.fontSize;
     this.fontWeight = source.fontWeight;

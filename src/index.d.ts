@@ -21,7 +21,11 @@ declare class SpriteText extends Sprite {
   set fontSize(fontSize: number);
   get fontWeight(): string;
   set fontWeight(fontWeight: string);
-  get padding(): number;
+  get offsetX(): number;
+  set offsetX(offset: number);
+  get offsetY(): number;
+  set offsetY(offset: number);
+  get padding(): number | [number, number];
   set padding(padding: number | [number, number]);
   get borderWidth(): number;
   set borderWidth(width: number);
